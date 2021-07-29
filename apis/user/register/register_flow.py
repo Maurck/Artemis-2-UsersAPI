@@ -29,6 +29,6 @@ class RegisterFlow:
             )
 
             new_user.save()
-            return json_message("Usuario registrado")
+            return json_message("Usuario registrado", 201)
 
-        return json_message("Usuario ya registrado")
+        return json_message("Usuario ya registrado", 100)
