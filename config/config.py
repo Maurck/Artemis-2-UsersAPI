@@ -38,3 +38,11 @@ def config_app_development(app):
 
 def token_config(app):
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+
+def config_cloudinary(cloudinary):
+    cloudinary.config(
+        cloud_name = os.getenv('CLOUD_NAME'),
+        api_key=os.getenv('API_KEY'),
+        api_secret=os.getenv('API_SECRET'),
+        secure=True
+    )

@@ -11,9 +11,11 @@ class User(Document):
     user_name = StringField(required=True)
     user_email = StringField(required=True)
     user_password = StringField(required=True)
+    user_description = StringField(required=False, default="")
+    user_img_url = StringField(required=False, default="")
     user_verified = BooleanField(required=True)
-    created_at = DateTimeField(required=True)
-    updated_at = DateTimeField(required=True)
+    user_created_at = DateTimeField(required=True)
+    user_updated_at = DateTimeField(required=True)
 
     def to_json(self):
         '''
@@ -24,8 +26,10 @@ class User(Document):
             "user_name": self.user_name,
             "user_email": self.user_email,
             "user_password": self.user_password,
+            "user_description": self.user_description,
+            "user_img_url": self.user_img_url,
             "user_verified": self.user_verified,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "user_created_at": self.user_created_at,
+            "user_updated_at": self.user_updated_at
         }
         return user_dict

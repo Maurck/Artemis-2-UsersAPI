@@ -5,13 +5,12 @@ from flask import jsonify
 from cerberus import Validator
 
 
-def json_message(msg, code=200):
+def json_message(msg):
     '''
     Metodo que devuelve un mensaje en formato json
     '''
     return jsonify({
-        "message": msg,
-        'statusCode': code
+        "message": msg
     })
 
 def validate_parameters(parameters, schema):

@@ -8,8 +8,8 @@ class LoginFlow:
 
     def __call__(self, request, bcrypt):
 
-        user_email = request.json['user_email']
-        user_password = request.json['user_password']
+        user_email = request.form['user_email']
+        user_password = request.form['user_password']
 
         user_obj = User.objects(
             user_email=user_email

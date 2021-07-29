@@ -14,5 +14,5 @@ login_body_schema = {
 class LoginValidator:
 
     def __call__(self, request):
-        body_validation_errors = validate_parameters(request.json, login_body_schema)
+        body_validation_errors = validate_parameters(request.form, login_body_schema)
         return body_validation_errors

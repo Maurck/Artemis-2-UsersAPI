@@ -16,9 +16,7 @@ register_body_schema = {
 }
 
 class RegisterValidator:
-    '''
-    Clase que inicia sesión
-    '''
+
     def __call__(self, request):
-        body_validation_errors = validate_parameters(request.json, register_body_schema)
+        body_validation_errors = validate_parameters(request.form, register_body_schema)
         return body_validation_errors
