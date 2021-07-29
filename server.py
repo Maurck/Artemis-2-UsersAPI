@@ -2,10 +2,9 @@
 from flask_jwt_extended import JWTManager
 from flask import Flask
 from flask_bcrypt import Bcrypt
-import cloudinary
 
 from config.config import config_app_production
-from config.config import config_cloudinary
+from config.config import config_app_development
 #from routes.views import create_routes_views
 #from routes.bicycles import create_routes_bicycles
 from routes.user import create_routes_user
@@ -15,8 +14,8 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
-config_app_production(app)
-config_cloudinary(cloudinary)
+#config_app_production(app)
+config_app_development(app)
 #create_routes_views(app)
 #create_routes_bicycles(app)
 create_routes_user(app, bcrypt)

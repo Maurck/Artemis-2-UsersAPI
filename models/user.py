@@ -13,6 +13,7 @@ class User(Document):
     user_password = StringField(required=True)
     user_description = StringField(required=False, default="")
     user_img_url = StringField(required=False, default="")
+    user_img_public_id = StringField(required=False, default="")
     user_verified = BooleanField(required=True)
     user_created_at = DateTimeField(required=True)
     user_updated_at = DateTimeField(required=True)
@@ -28,6 +29,7 @@ class User(Document):
             "user_password": self.user_password,
             "user_description": self.user_description,
             "user_img_url": self.user_img_url,
+            "user_img_public_id": self.user_img_public_id,
             "user_verified": self.user_verified,
             "user_created_at": self.user_created_at,
             "user_updated_at": self.user_updated_at

@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 from flask_cors import CORS
 from mongoengine import connect
+import cloudinary
 
 def config_app(app):
     load_dotenv()
@@ -17,6 +18,8 @@ def config_app(app):
     connect(host=DB_URI)
 
     CORS(app=app, supports_credentials=True)
+
+    config_cloudinary()
 
 def config_app_production(app):
     config_app(app)
@@ -39,7 +42,7 @@ def config_app_development(app):
 def token_config(app):
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
 
-def config_cloudinary(cloudinary):
+def config_cloudinary():
     cloudinary.config(
         cloud_name = os.getenv('CLOUD_NAME'),
         api_key=os.getenv('API_KEY'),

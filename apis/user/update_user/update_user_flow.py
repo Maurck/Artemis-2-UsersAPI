@@ -13,8 +13,15 @@ class UpdateUserFlow:
         ).first()
 
         if "user_image" in request.files:
+            if user_obj.user_img_url != "":
+                cloudinary.uploader.destroy(user_obj.user_img_public_id)
+                print("imagen destruida")
+            
             upload_result = cloudinary.uploader.upload(request.files["user_image"])
             user_obj.user_img_url = upload_result["url"]
+            user_obj.user_img_public_id = upload_result["public_id"]
+            print(upload_result)
+            print("imagen subida")
 
         if "user_description" in request.form:
             user_obj.user_description = request.form["user_description"]
