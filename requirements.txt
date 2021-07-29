@@ -7,3 +7,4 @@ mongoengine==0.23.1
 python-dotenv==0.18.0
 dnspython
 cloudinary
+gunicorn
