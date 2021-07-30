@@ -11,7 +11,8 @@ register_body_schema = {
     },
     'user_email': {
         'nullable': False,
-        'required': True
+        'required': True,
+        'regex': '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     },    
 }
 

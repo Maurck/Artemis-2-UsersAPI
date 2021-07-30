@@ -7,42 +7,43 @@ from flask_cors import CORS
 from mongoengine import connect
 import cloudinary
 
-def config_app(app):
+def server_config(app):
     load_dotenv()
-
-    app.secret_key = os.getenv('SECRET_KEY')
-    
     token_config(app)
+    database_config()
+    cors_config(app)
+    cloudinary_config()
+    app_cofig(app)
 
+def app_cofig(app):
+    app.secret_key = os.getenv('SECRET_KEY')
+
+    server_status = os.getenv('SERVER_STATUS', 'DEVELOPMENT')
+
+    if server_status == 'DEVELOPMENT':
+        app.config.update(
+            SERVER_NAME=os.getenv('DEVELOPMENT_SERVER_NAME'),
+            SESSION_COOKIE_NAME=os.getenv('DEVELOPMENT_SERVER_NAME'),
+            SESSION_COOKIE_DOMAIN=os.getenv('DEVELOPMENT_SERVER_NAME'),
+        )
+    elif server_status == 'PRODUCTION':
+        app.config.update(
+            SERVER_NAME=os.getenv('PRODUCTION_SERVER_NAME'),
+            SESSION_COOKIE_NAME=os.getenv('PRODUCTION_SERVER_NAME'),
+            SESSION_COOKIE_DOMAIN=os.getenv('PRODUCTION_SERVER_NAME')
+        )
+
+def database_config():
     DB_URI = os.getenv('DB_URI')
     connect(host=DB_URI)
 
+def cors_config(app):
     CORS(app=app, supports_credentials=True)
-
-    config_cloudinary()
-
-def config_app_production(app):
-    config_app(app)
-
-    app.config.update(
-        SERVER_NAME=os.getenv('PRODUCTION_SERVER_NAME'),
-        SESSION_COOKIE_NAME=os.getenv('PRODUCTION_SERVER_NAME'),
-        SESSION_COOKIE_DOMAIN=os.getenv('PRODUCTION_SERVER_NAME')
-    )
-
-def config_app_development(app):
-    config_app(app)
-
-    app.config.update(
-        SERVER_NAME=os.getenv('DEVELOPMENT_SERVER_NAME'),
-        SESSION_COOKIE_NAME=os.getenv('DEVELOPMENT_SERVER_NAME'),
-        SESSION_COOKIE_DOMAIN=os.getenv('DEVELOPMENT_SERVER_NAME'),
-    )
 
 def token_config(app):
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
 
-def config_cloudinary():
+def cloudinary_config():
     cloudinary.config(
         cloud_name = os.getenv('CLOUD_NAME'),
         api_key=os.getenv('API_KEY'),

@@ -3,21 +3,14 @@ from flask_jwt_extended import JWTManager
 from flask import Flask
 from flask_bcrypt import Bcrypt
 
-from config.config import config_app_production
-from config.config import config_app_development
-#from routes.views import create_routes_views
-#from routes.bicycles import create_routes_bicycles
+from config.config import server_config
 from routes.user import create_routes_user
 
-#app = Flask(__name__, template_folder='../Frontend/templates', static_folder='../Frontend/static')
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
-config_app_production(app)
-#config_app_development(app)
-#create_routes_views(app)
-#create_routes_bicycles(app)
+server_config(app)
 create_routes_user(app, bcrypt)
 
 if __name__ == '__main__':
