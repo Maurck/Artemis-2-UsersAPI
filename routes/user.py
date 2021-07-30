@@ -9,6 +9,7 @@ from apis.user.register.register import Register
 from apis.user.get_user.get_user import GetUser
 from apis.user.get_users.get_users import GetUsers
 from apis.user.update_user.update_user import UpdateUser
+from apis.user.get_user_by_name.get_user_by_name import GetUserByName
 
 
 def create_routes_user(app, bcrypt):
@@ -33,6 +34,13 @@ def create_routes_user(app, bcrypt):
     def get_user():
         get_user = GetUser()
         return get_user(request)
+
+    # pylint: disable=unused-variable
+    @app.route('/user/search')
+    @jwt_required()
+    def get_user_by_name():
+        get_user_by_name = GetUserByName()
+        return get_user_by_name(request)
 
     
     # pylint: disable=unused-variable
