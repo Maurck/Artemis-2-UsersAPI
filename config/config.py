@@ -63,3 +63,12 @@ def get_app(__name__):
         app = FlaskLambda(__name__)
 
     return app
+
+def run_app(app):
+    server_status = os.getenv('SERVER_STATUS', 'DEVELOPMENT')
+
+    if server_status == 'DEVELOPMENT':
+        app.run(debug=True, host='0.0.0.0', port=5000)
+    elif server_status == 'PRODUCTION':
+        app.run(debug=True)
+    
