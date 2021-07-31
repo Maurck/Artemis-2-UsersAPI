@@ -4,9 +4,10 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 
 from config.config import server_config
+from config.config import get_app
 from routes.user import create_routes_user
 
-app = Flask(__name__)
+app = get_app(__name__)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 

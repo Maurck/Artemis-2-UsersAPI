@@ -3,6 +3,8 @@ config.py: modulo donde se configura la aplicación
 '''
 import os
 from dotenv import load_dotenv
+from flask import Flask
+from flask_lambda import FlaskLambda
 from flask_cors import CORS
 from mongoengine import connect
 import cloudinary
@@ -50,3 +52,14 @@ def cloudinary_config():
         api_secret=os.getenv('API_SECRET'),
         secure=True
     )
+
+def get_app(__name__):
+
+    server_status = os.getenv('SERVER_STATUS', 'DEVELOPMENT')
+
+    if server_status == 'DEVELOPMENT':
+        app = Flask(__name__)
+    elif server_status == 'PRODUCTION':
+        app = FlaskLambda(__name__)
+
+    return app

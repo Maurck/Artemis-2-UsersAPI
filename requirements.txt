@@ -8,3 +8,4 @@ python-dotenv==0.18.0
 dnspython
 cloudinary
 gunicorn
+flask-lambda
