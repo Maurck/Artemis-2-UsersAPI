@@ -9,7 +9,7 @@ class UpdateUserFlow:
     def __call__(self, request, bcrypt):
 
         user_obj = User.objects(
-            id=get_jwt_identity()
+            id=get_jwt_identity()["user_id"]
         ).first()
 
         if "user_image" in request.files:

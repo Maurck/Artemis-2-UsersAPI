@@ -32,7 +32,12 @@ class RegisterFlow:
 
             new_user.save()
 
-            access_token = create_access_token(identity=new_user.to_json()["user_id"])
+            jwt_token_identity = {
+                'user_id': new_user.to_json()["user_id"],
+                'user_name': new_user.to_json()["user_name"]
+            }
+
+            access_token = create_access_token(identity=jwt_token_identity)
             return jsonify({
                 "message": "Usuario registrado",
                 "token": access_token,

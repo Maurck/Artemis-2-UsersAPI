@@ -15,10 +15,15 @@ class LoginFlow:
             user_email=user_email
         ).first()
 
+
         if user_obj is not None:
             # password verification
             if bcrypt.check_password_hash(user_obj.user_password, user_password):
-                access_token = create_access_token(identity=user_obj.to_json()["user_id"])
+                jwt_token_identity = {
+                    'user_id': user_obj.to_json()["user_id"],
+                    'user_name': user_obj.to_json()["user_name"]
+                }
+                access_token = create_access_token(identity=jwt_token_identity)
                 return jsonify({
                     "token": access_token,
                     "user": user_obj.to_json()
